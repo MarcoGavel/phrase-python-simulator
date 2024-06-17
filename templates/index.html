@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phrase Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background-color: #f0f0f0; /* Colore di sfondo di fallback */
+            color: black; /* Colore di testo di fallback */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Phrase Simulator</h1>
+        <form id="phraseForm" method="POST" action="/">
+            <label for="name">What is your name?</label>
+            <input type="text" id="name" name="name" required>
+            <button type="submit">Submit</button>
+            <button type="button" onclick="resetForm()">Reset</button>
+        </form>
+        {% if name %}
+            <h2 id="greeting">Hello, {{ name }}!</h2>
+            <p id="motivationalPhrase" class="phrase">{{ phrase }}</p>
+        {% endif %}
+    </div>
+    <script>
+        // Funzione per generare un colore pastello casuale
+        function getRandomPastelColor() {
+            var hue = Math.floor(Math.random() * 360);
+            var pastel = 'hsl(' + hue + ', 100%, 80%)';
+            return pastel;
+        }
+
+        // Funzione per resettare il form
+        function resetForm() {
+            document.getElementById("phraseForm").reset(); // Resetta il form
+            document.getElementById("greeting").innerHTML = ""; // Cancella il saluto
+            document.getElementById("motivationalPhrase").innerHTML = ""; // Cancella la frase motivazionale
+            var backgroundColor = getRandomPastelColor();
+            var hue = backgroundColor.match(/\d+/g)[0]; // Estrai il valore di hue dal colore hsl
+            var textColor = (hue < 200) ? '#ffffff' : '#000000'; // Scegli il colore del testo in base alla luminosità del colore di sfondo
+            document.body.style.backgroundColor = backgroundColor;
+            document.body.style.color = textColor;
+        }
+
+        // Inizializzazione del colore di sfondo e del testo al caricamento della pagina
+        var initialBackgroundColor = getRandomPastelColor();
+        var initialHue = initialBackgroundColor.match(/\d+/g)[0]; // Estrai il valore di hue dal colore hsl
+        var initialTextColor = (initialHue < 200) ? '#ffffff' : '#000000'; // Scegli il colore del testo in base alla luminosità del colore di sfondo
+        document.body.style.backgroundColor = initialBackgroundColor;
+        document.body.style.color = initialTextColor;
+    </script>
+</body>
+</html>
