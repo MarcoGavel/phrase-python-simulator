@@ -1,0 +1,5 @@
+[build]
+  command = "python app.py"  # Comando per avviare l'applicazione Flask
+
+[dev]
+  command = "python app.py"  # Comando per avviare l'applicazione Flask in ambiente di sviluppo
