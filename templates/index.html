@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="container">
         <h1>Welcome to the Phrase Simulator</h1>
         <form id="phraseForm" method="POST" action="/">
             <label for="name">What is your name?</label>
@@ -33,6 +33,12 @@
             var pastel = 'hsl(' + hue + ', 100%, 80%)';
             return pastel;
         }
+         // Funzione per calcolare un colore più scuro
+         function darkenColor(hslColor, percent) {
+            var hsl = hslColor.match(/\d+/g);
+            var l = Math.max(0, parseInt(hsl[2]) - percent);
+            return `hsl(${hsl[0]}, ${hsl[1]}%, ${l}%)`;
+        }
 
         // Funzione per resettare il form
         function resetForm() {
@@ -44,6 +50,9 @@
             var textColor = (hue < 200) ? '#ffffff' : '#000000'; // Scegli il colore del testo in base alla luminosità del colore di sfondo
             document.body.style.backgroundColor = backgroundColor;
             document.body.style.color = textColor;
+
+            var containerColor = darkenColor(backgroundColor, 20); // Calcola un colore più scuro
+            document.getElementById('container').style.backgroundColor = containerColor; // Applica il colore più scuro al container
         }
 
         // Inizializzazione del colore di sfondo e del testo al caricamento della pagina
@@ -52,6 +61,9 @@
         var initialTextColor = (initialHue < 200) ? '#ffffff' : '#000000'; // Scegli il colore del testo in base alla luminosità del colore di sfondo
         document.body.style.backgroundColor = initialBackgroundColor;
         document.body.style.color = initialTextColor;
+
+        var initialContainerColor = darkenColor(initialBackgroundColor, 20); // Calcola un colore più scuro
+        document.getElementById('container').style.backgroundColor = initialContainerColor; // Applica il colore più scuro al container
     </script>
 </body>
 </html>
