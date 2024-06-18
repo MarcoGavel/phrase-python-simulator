@@ -46,21 +46,23 @@
             document.getElementById("greeting").innerHTML = ""; // Cancella il saluto
             document.getElementById("motivationalPhrase").innerHTML = ""; // Cancella la frase motivazionale
             var backgroundColor = getRandomPastelColor();
-            var hue = backgroundColor.match(/\d+/g)[0]; // Estrai il valore di hue dal colore hsl
-            var textColor = (hue < 200) ? '#ffffff' : '#000000'; // Scegli il colore del testo in base alla luminosità del colore di sfondo
+            
             document.body.style.backgroundColor = backgroundColor;
-            document.body.style.color = textColor;
+            
 
             var containerColor = darkenColor(backgroundColor, 20); // Calcola un colore più scuro
             document.getElementById('container').style.backgroundColor = containerColor; // Applica il colore più scuro al container
+            
+            var textHue = (parseInt(backgroundColor.match(/\d+/g)[0]) + 180) % 360; // Sposta l'hue di 180 gradi per ottenere un colore complementare
+            var darkPastel = 'hsl(' + textHue + ', 100%, 30%)'; // Saturazione e luminosità a valori fissi per ottenere un pastello scuro
+            document.body.style.color = darkPastel; // Applica il colore pastello scuro al testo
         }
 
         // Inizializzazione del colore di sfondo e del testo al caricamento della pagina
         var initialBackgroundColor = getRandomPastelColor();
-        var initialHue = initialBackgroundColor.match(/\d+/g)[0]; // Estrai il valore di hue dal colore hsl
-        var initialTextColor = (initialHue < 200) ? '#ffffff' : '#000000'; // Scegli il colore del testo in base alla luminosità del colore di sfondo
+        
         document.body.style.backgroundColor = initialBackgroundColor;
-        document.body.style.color = initialTextColor;
+        
 
         var initialContainerColor = darkenColor(initialBackgroundColor, 20); // Calcola un colore più scuro
         document.getElementById('container').style.backgroundColor = initialContainerColor; // Applica il colore più scuro al container
